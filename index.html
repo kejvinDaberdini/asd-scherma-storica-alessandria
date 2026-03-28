@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --gold-dark: #8a6a1f;
+    --parchment: #f5efe0;
+    --ink: #1a1208;
+    --ink-muted: #3d2f14;
+    --red-dark: #6b1a1a;
+    --bg-dark: #0e0b06;
+    --bg-mid: #1c1609;
+    --bg-card: #1a1409;
+    --border-ornate: #c9a84c44;
+  }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--bg-dark);
+    color: var(--parchment);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14, 11, 6, 0.95);
+    border-bottom: 1px solid var(--gold-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 60px;
+    backdrop-filter: blur(6px);
+  }
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #c4b07a;
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 70% at 50% 40%, #2a1f0a 0%, transparent 70%),
+      radial-gradient(ellipse 100% 50% at 50% 100%, #1a0d00 0%, transparent 60%),
+      #0e0b06;
+  }
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 39px, #c9a84c0a 39px, #c9a84c0a 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, #c9a84c06 39px, #c9a84c06 40px);
+  }
+  .hero-content { position: relative; z-index: 2; }
+
+  .ornament {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 20px;
+    letter-spacing: 0.5em;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.15;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 60px #c9a84c30;
+    margin-bottom: 0.4rem;
+  }
+  .hero-sub {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+  }
+  .hero-desc {
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.15rem;
+    color: #c9b78f;
+    font-style: italic;
+    line-height: 1.8;
+  }
+
+  .divider-ornate {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem auto;
+    max-width: 340px;
+  }
+  .divider-ornate::before, .divider-ornate::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark));
+  }
+  .divider-ornate::after { background: linear-gradient(to left, transparent, var(--gold-dark)); }
+  .divider-diamond {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .btn-primary {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 12px 32px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .section-text {
+    color: #b8a47a;
+    font-size: 1.05rem;
+    max-width: 640px;
+    line-height: 1.85;
+  }
+
+  /* DISCIPLINES */
+  .disciplines {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border-ornate);
+    border: 1px solid var(--border-ornate);
+    margin-top: 3rem;
+  }
+  .discipline-card {
+    background: var(--bg-card);
+    padding: 2rem 1.5rem;
+    transition: background 0.3s;
+  }
+  .discipline-card:hover { background: #231b0d; }
+  .disc-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .disc-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .disc-text {
+    font-size: 0.9rem;
+    color: #8a7550;
+    line-height: 1.6;
+  }
+
+  /* EVENTI */
+  .events-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1px; }
+  .event-item {
+    background: var(--bg-card);
+    border-left: 3px solid var(--gold-dark);
+    padding: 1.4rem 1.8rem;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .event-item:hover { border-color: var(--gold); background: #1f1709; }
+  .event-date {
+    text-align: center;
+    border-right: 1px solid var(--border-ornate);
+    padding-right: 1.5rem;
+  }
+  .event-day {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .event-month {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-family: 'Cinzel', serif;
+  }
+  .event-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--parchment);
+    margin-bottom: 0.3rem;
+  }
+  .event-info { font-size: 0.88rem; color: #7a6840; }
+  .event-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    padding: 2px 8px;
+    border: 1px solid var(--red-dark);
+    color: #c46060;
+    margin-bottom: 0.4rem;
+  }
+
+  /* BLOG */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border-ornate);
+    border: 1px solid var(--border-ornate);
+    margin-top: 2.5rem;
+  }
+  .blog-card {
+    background: var(--bg-card);
+    padding: 2rem 1.8rem;
+    transition: background 0.2s;
+  }
+  .blog-card:hover { background: #1e160a; }
+  .blog-cat {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.8rem;
+  }
+  .blog-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    color: #d4be8a;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .blog-excerpt { font-size: 0.88rem; color: #7a6840; line-height: 1.65; font-style: italic; }
+  .blog-date { font-size: 0.78rem; color: #5a4a28; margin-top: 1.2rem; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+  /* CONTATTI */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2.5rem;
+  }
+  @media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-item { margin-bottom: 1.5rem; }
+  .contact-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.3rem;
+  }
+  .contact-val { color: #b8a47a; font-size: 1rem; }
+
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group input, .form-group textarea {
+    width: 100%;
+    background: #110e06;
+    border: 1px solid var(--border-ornate);
+    color: var(--parchment);
+    padding: 10px 14px;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold-dark); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: #4a3d22; }
+  .form-group textarea { height: 100px; resize: none; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border-ornate);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    opacity: 0.5;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .footer-copy { font-size: 0.8rem; color: #4a3d22; }
+
+  /* FULL PAGE WRAPPER */
+  .page-wrap {
+    min-height: 100vh;
+    background: var(--bg-dark);
+  }
+
+  .full-divider {
+    border: none;
+    border-top: 1px solid var(--border-ornate);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav>
+  <div class="nav-logo">ASD Scherma Storica<br>Alessandria</div>
+  <ul class="nav-links">
+    <li><a>Chi siamo</a></li>
+    <li><a>Discipline</a></li>
+    <li><a>Eventi</a></li>
+    <li><a>Blog</a></li>
+    <li><a>Contatti</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+    <h1>Scherma Storica<br>Alessandria</h1>
+    <div class="hero-sub">Hema · Arte marziale europea</div>
+    <div class="divider-ornate"><div class="divider-diamond"></div></div>
+    <p class="hero-desc">
+      Studiamo e pratichiamo le arti marziali degli antichi maestri europei,
+      fedeli ai trattati originali del XIV–XVII secolo.
+    </p>
+    <button class="btn-primary">Unisciti a noi</button>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- CHI SIAMO -->
+<section>
+  <div class="section-label">Chi siamo</div>
+  <h2 class="section-title">L'arte della lama riscoperta</h2>
+  <p class="section-text">
+    L'ASD Scherma Storica Alessandria nasce dalla passione per le arti marziali storiche europee.
+    Il nostro metodo si fonda sullo studio filologico dei trattati dei grandi maestri — da Fiore dei Liberi
+    a Johannes Liechtenauer — portando in vita tecniche che per secoli sono rimaste dimenticate nei manoscritti.
+    Allenamoci con rigore, rispetto e spirito fraterno.
+  </p>
+  <div class="disciplines">
+    <div class="discipline-card">
+      <span class="disc-icon">⚔</span>
+      <div class="disc-title">Longsword</div>
+      <p class="disc-text">Lo spadone a due mani è il cuore della tradizione tedesca e italiana. Studio dei trattati Liechtenauer e Fiore.</p>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">🗡</span>
+      <div class="disc-title">Spada & Rotella</div>
+      <p class="disc-text">Arte della spada singola con scudo rotondo, secondo i maestri rinascimentali del '500 italiano.</p>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">🤺</span>
+      <div class="disc-title">Messer & Daga</div>
+      <p class="disc-text">Le armi corte della tradizione borghese medievale, combinate con tecniche di lotta a corpo a corpo.</p>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">📜</span>
+      <div class="disc-title">Studio dei trattati</div>
+      <p class="disc-text">Sessioni dedicate all'analisi filologica dei manoscritti originali: Flos Duellatorum, Codex Döbringer e altri.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- EVENTI -->
+<section>
+  <div class="section-label">Prossimi eventi</div>
+  <h2 class="section-title">In campo & in sala</h2>
+  <div class="events-list">
+    <div class="event-item">
+      <div class="event-date">
+        <div class="event-day">12</div>
+        <div class="event-month">Apr</div>
+      </div>
+      <div>
+        <div class="event-badge">Torneo</div>
+        <div class="event-name">Torneo Primaverile di Longsword</div>
+        <div class="event-info">Palestra Comunale, Alessandria · Ore 10:00</div>
+      </div>
+    </div>
+    <div class="event-item">
+      <div class="event-date">
+        <div class="event-day">26</div>
+        <div class="event-month">Apr</div>
+      </div>
+      <div>
+        <div class="event-name">Seminario: Fiore dei Liberi — Abrazare</div>
+        <div class="event-info">Sala d'armi, via Roma 14 · Ore 14:00 – 18:00</div>
+      </div>
+    </div>
+    <div class="event-item">
+      <div class="event-date">
+        <div class="event-day">10</div>
+        <div class="event-month">Mag</div>
+      </div>
+      <div>
+        <div class="event-badge">Open day</div>
+        <div class="event-name">Giornata di prova gratuita</div>
+        <div class="event-info">Aperta a tutti · Nessuna esperienza richiesta · Ore 10:00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- BLOG -->
+<section>
+  <div class="section-label">Dal blog</div>
+  <h2 class="section-title">Storie, tecniche & storia</h2>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-cat">Trattati storici</div>
+      <div class="blog-title">Flos Duellatorum: il genio di Fiore dei Liberi</div>
+      <p class="blog-excerpt">Scritto intorno al 1409, il Flos Duellatorum è il più importante trattato di arte marziale della tradizione italiana. Esploriamo la sua struttura e i concetti fondamentali...</p>
+      <div class="blog-date">Marzo 2026</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-cat">Tecnica</div>
+      <div class="blog-title">Zornhau: il colpo dell'ira nella tradizione tedesca</div>
+      <p class="blog-excerpt">Tra i cinque colpi maestri di Liechtenauer, lo Zornhau è forse il più versatile. Analizziamo le sue applicazioni offensive e difensive...</p>
+      <div class="blog-date">Febbraio 2026</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-cat">Vita del club</div>
+      <div class="blog-title">Il nostro primo torneo regionale: resoconto e foto</div>
+      <p class="blog-excerpt">Sei atleti, tre categorie, e una giornata indimenticabile. Raccontiamo la nostra esperienza al torneo regionale HEMA di Torino...</p>
+      <div class="blog-date">Gennaio 2026</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- CONTATTI -->
+<section>
+  <div class="section-label">Contatti</div>
+  <h2 class="section-title">Unisciti alla sala</h2>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-item">
+        <div class="contact-label">Sede</div>
+        <div class="contact-val">Palestra Comunale, Via Roma 14<br>Alessandria (AL)</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">Allenamenti</div>
+        <div class="contact-val">Martedì & Giovedì, 20:00 – 22:00<br>Sabato, 10:00 – 12:30</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">Email</div>
+        <div class="contact-val">info@schermastoricareal.it</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">Instagram</div>
+        <div class="contact-val">@schermastoricalessandria</div>
+      </div>
+    </div>
+    <div>
+      <div class="form-group">
+        <input type="text" placeholder="Il tuo nome">
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <textarea placeholder="Messaggio o domande sul club..."></textarea>
+      </div>
+      <button class="btn-primary">Invia messaggio</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">ASD Scherma Storica Alessandria</div>
+  <div class="footer-copy">© 2026 · Tutti i diritti riservati · P.IVA —</div>
+</footer>
+
+</div>
+</body>
+</html>
